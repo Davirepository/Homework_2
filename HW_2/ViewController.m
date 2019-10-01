@@ -7,8 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "GuestWaiterKitchen.h"
+#import "Guest.h"
+#import "Waiter.h"
+#import "Kitchen.h"
 
-@interface ViewController ()
+@interface ViewController () <GuestWaiterKitchen>
 
 @end
 
@@ -16,8 +20,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    Guest *guest = [[Guest alloc] init];
+    Waiter *waiter = [[Waiter alloc] init];
+    Kitchen *kitchen = [[Kitchen alloc] init];
+    guest.delegate = waiter;
+    waiter.delegate = kitchen;
+    kitchen.delegate = waiter;
+    [guest choosFood];
+    [waiter takeOrder];
+    [kitchen foodIsDone];
+    [guest guestGoIt];
+    [waiter guestLeaveMoney];
 }
-
 
 @end
